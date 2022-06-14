@@ -9,7 +9,7 @@
         crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./assets/style.css">
     <title>Music Player</title>
 </head>
 <body>
@@ -107,5 +107,87 @@
             </div>
         </div>
     </div>
+
+    <script>
+        /**
+         * 1. Render songs
+         * 2. Scroll top
+         * 3. Play / pause /seek
+         * 4. CD rotate
+         * 5. Next / prev
+         * 6. Random
+         * 7. Next / Repeat when ended
+         * 8. Active song 
+         * 9. Scroll active song into view
+         * 10. Play song when click
+        */
+
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
+
+
+        const songs = [
+            {
+                name: 'Nevada',
+                singer: 'Vicetone',
+                path: './assets/music/song1.mp3',
+                image: './assets/img/song1.png'
+            },
+            {
+                name: 'SummerTime',
+                singer: 'K-391',
+                path: './assets/music/song2.mp3',
+                image: './assets/img/song2.png'
+            },
+            {
+                name: 'Monody',
+                singer: 'TheFatRat',
+                path: './assets/music/song3.mp3',
+                image: './assets/img/song3.png'
+            },
+            {
+                name: 'Reality',
+                singer: 'Lost Frequencies',
+                path: './assets/music/song4.mp3',
+                image: './assets/img/song4.png'
+            },
+            {
+                name: 'Ngày Khác Lạ',
+                singer: 'Đen',
+                path: './assets/music/song5.mp3',
+                image: './assets/img/song5.png'
+            },
+            {
+                name: 'Lemon Tree',
+                singer: 'Post Malone',
+                path: './assets/music/song6.mp3',
+                image: './assets/img/song6.png'
+            },
+            {
+                name: 'Sugar',
+                singer: 'Maroon 5',
+                path: './assets/music/song7.mp3',
+                image: './assets/img/song7.jpeg'
+            },
+            {
+                name: 'My Love',
+                singer: 'Westlife',
+                path: './assets/music/song8.mp3',
+                image: './assets/img/song8.jpeg'
+            },
+            {
+                name: 'Attention',
+                singer: 'Charlie Puth',
+                path: './assets/music/song9.mp3',
+                image: './assets/img/song9.png'
+            },
+            {
+                name: 'Monsters',
+                singer: 'Katie Sky',
+                path: './assets/music/song10.mp3',
+                image: './assets/img/song10.png'
+            }
+        ]
+    </script>
 </body>
 </html>
