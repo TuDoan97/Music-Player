@@ -55,56 +55,7 @@
 
         <!-- Playlist -->
         <div class="playlist">
-            <div class="song active">
-                <div class="thumb" style="background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg')"></div>
-                <div class="body">
-                    <h3 class="title">Music name</h3>
-                    <p class="author">Singer</p>
-                </div>
-                <div class="option">
-                    <i class="fas fa-ellipsis-h"></i>
-                </div>
-            </div>
-            <div class="song">
-                <div class="thumb" style="background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg')"></div>
-                <div class="body">
-                    <h3 class="title">Music name</h3>
-                    <p class="author">Singer</p>
-                </div>
-                <div class="option">
-                    <i class="fas fa-ellipsis-h"></i>
-                </div>
-            </div>
-            <div class="song">
-                <div class="thumb" style="background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg')"></div>
-                <div class="body">
-                    <h3 class="title">Music name</h3>
-                    <p class="author">Singer</p>
-                </div>
-                <div class="option">
-                    <i class="fas fa-ellipsis-h"></i>
-                </div>
-            </div>
-            <div class="song">
-                <div class="thumb" style="background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg')"></div>
-                <div class="body">
-                    <h3 class="title">Music name</h3>
-                    <p class="author">Singer</p>
-                </div>
-                <div class="option">
-                    <i class="fas fa-ellipsis-h"></i>
-                </div>
-            </div>
-            <div class="song">
-                <div class="thumb" style="background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg')"></div>
-                <div class="body">
-                    <h3 class="title">Music name</h3>
-                    <p class="author">Singer</p>
-                </div>
-                <div class="option">
-                    <i class="fas fa-ellipsis-h"></i>
-                </div>
-            </div>
+            
         </div>
     </div>
 
@@ -126,68 +77,96 @@
         const $$ = document.querySelectorAll.bind(document);
 
 
-        const songs = [
-            {
-                name: 'Nevada',
-                singer: 'Vicetone',
-                path: './assets/music/song1.mp3',
-                image: './assets/img/song1.png'
+
+        const app = {
+            songs: [
+                {
+                    name: 'Nevada',
+                    singer: 'Vicetone',
+                    path: './assets/music/song1.mp3',
+                    image: './assets/img/song1.png'
+                },
+                {
+                    name: 'SummerTime',
+                    singer: 'K-391',
+                    path: './assets/music/song2.mp3',
+                    image: './assets/img/song2.png'
+                },
+                {
+                    name: 'Monody',
+                    singer: 'TheFatRat',
+                    path: './assets/music/song3.mp3',
+                    image: './assets/img/song3.png'
+                },
+                {
+                    name: 'Reality',
+                    singer: 'Lost Frequencies',
+                    path: './assets/music/song4.mp3',
+                    image: './assets/img/song4.png'
+                },
+                {
+                    name: 'Ngày Khác Lạ',
+                    singer: 'Đen',
+                    path: './assets/music/song5.mp3',
+                    image: './assets/img/song5.png'
+                },
+                {
+                    name: 'Lemon Tree',
+                    singer: 'Post Malone',
+                    path: './assets/music/song6.mp3',
+                    image: './assets/img/song6.png'
+                },
+                {
+                    name: 'Sugar',
+                    singer: 'Maroon 5',
+                    path: './assets/music/song7.mp3',
+                    image: './assets/img/song7.jpeg'
+                },
+                {
+                    name: 'My Love',
+                    singer: 'Westlife',
+                    path: './assets/music/song8.mp3',
+                    image: './assets/img/song8.jpeg'
+                },
+                {
+                    name: 'Attention',
+                    singer: 'Charlie Puth',
+                    path: './assets/music/song9.mp3',
+                    image: './assets/img/song9.png'
+                },
+                {
+                    name: 'Monsters',
+                    singer: 'Katie Sky',
+                    path: './assets/music/song10.mp3',
+                    image: './assets/img/song10.png'
+                }
+            ],
+            render: function(){
+                const htmls = this.songs.map(song => {
+                    return `
+                        <div class="song">
+                            <div class="thumb" style="background-image: url('${song.image}')"></div>
+                            <div class="body">
+                                <h3 class="title">${song.name}</h3>
+                                <p class="author">${song.singer}</p>
+                            </div>
+                            <div class="option">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </div>
+                        </div>
+                    `
+                })
+                $('.playlist').innerHTML = htmls.join('');
             },
-            {
-                name: 'SummerTime',
-                singer: 'K-391',
-                path: './assets/music/song2.mp3',
-                image: './assets/img/song2.png'
+            handleEvents: function(){
+                
             },
-            {
-                name: 'Monody',
-                singer: 'TheFatRat',
-                path: './assets/music/song3.mp3',
-                image: './assets/img/song3.png'
-            },
-            {
-                name: 'Reality',
-                singer: 'Lost Frequencies',
-                path: './assets/music/song4.mp3',
-                image: './assets/img/song4.png'
-            },
-            {
-                name: 'Ngày Khác Lạ',
-                singer: 'Đen',
-                path: './assets/music/song5.mp3',
-                image: './assets/img/song5.png'
-            },
-            {
-                name: 'Lemon Tree',
-                singer: 'Post Malone',
-                path: './assets/music/song6.mp3',
-                image: './assets/img/song6.png'
-            },
-            {
-                name: 'Sugar',
-                singer: 'Maroon 5',
-                path: './assets/music/song7.mp3',
-                image: './assets/img/song7.jpeg'
-            },
-            {
-                name: 'My Love',
-                singer: 'Westlife',
-                path: './assets/music/song8.mp3',
-                image: './assets/img/song8.jpeg'
-            },
-            {
-                name: 'Attention',
-                singer: 'Charlie Puth',
-                path: './assets/music/song9.mp3',
-                image: './assets/img/song9.png'
-            },
-            {
-                name: 'Monsters',
-                singer: 'Katie Sky',
-                path: './assets/music/song10.mp3',
-                image: './assets/img/song10.png'
+            start: function(){
+                this.render();
             }
-        ]
+        }
+
+        app.start()
     </script>
 </body>
 </html>
