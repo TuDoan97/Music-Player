@@ -76,9 +76,22 @@
         const $ = document.querySelector.bind(document);
         const $$ = document.querySelectorAll.bind(document);
 
+        const cd = $('.cd');
+        const heading = $('header h2');
+        const cdThumb = $('.cd-thumb');
+        const audio = $('#audio');
+
+        const playBtn = $('.btn-toggle-play');
+
+        const player = $('.player');
+
+        const progress = $('#progress');
+
 
 
         const app = {
+            currentIndex: 0,
+            isPlaying: false,
             songs: [
                 {
                     name: 'Nevada',
@@ -158,10 +171,18 @@
                 })
                 $('.playlist').innerHTML = htmls.join('');
             },
+            defineProperties: function() {
+                Object.defineProperty(this, 'currentSong', {
+                    get: function() {
+                        return this.songs[this.currentIndex];
+                    }
+                })
+            },
             handleEvents: function(){
-                const cd = $('.cd');
+                const _this = this;
                 const cdWidth = cd.offsetWidth; 
 
+                // Xu ly phong to thu nho 
                 document.onscroll = function() {
                     const scrollTop = window.scrollY || document.documentElement.scrollTop;
                     const newCdWidth = cdWidth - scrollTop;
@@ -169,10 +190,59 @@
                     cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
                     cd.style.opacity = newCdWidth / cdWidth;
                 }
+
+                // Xu ly khi click play
+                playBtn.onclick = function() {
+                    if(_this.isPlaying){
+                        audio.pause();
+                    }else {
+                        audio.play();
+                    }
+                }
+
+                //Khi song duoc Play
+                audio.onplay = function() {
+                    _this.isPlaying = true;
+                    player.classList.add('playing');
+                } 
+
+                //khi song bi pause
+                audio.onpause = function() {
+                    _this.isPlaying = false;
+                    player.classList.remove('playing');
+                }
+
+                //Khi tien do bai hat thay doi
+                audio.ontimeupdate = function () {
+                    if(audio.duration){
+                        const progressPercent = Math.floor(audio.currentTime / audio.duration * 100);
+                        progress.value = progressPercent;
+                    }
+                }
+
+                // Xu ly khi tua
+                progress.onchange = function(e) {
+                    const seekTime = audio.duration / 100 * e.target.value;
+                    audio.currentTime = seekTime
+                }
+            },
+            loadCurrentSong: function() {
+
+                heading.textContent = this.currentSong.name;
+                cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
+                audio.src = this.currentSong.path;
             },
             start: function(){
+                // Dinh nghia cac thuoc tinh obj
+                this.defineProperties();
+
+                // Lang nghe / xu ly cac xu kien
                 this.handleEvents();
 
+                //Tai thong tin bai hat dau tien vao UI khi chay
+                this.loadCurrentSong();
+
+                // Render playlist
                 this.render();
             }
         }
