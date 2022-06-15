@@ -93,6 +93,8 @@
 
         const randomBtn = $('.btn-random');
 
+        const repeatBtn = $('.btn-repeat');
+
 
 
 
@@ -100,6 +102,7 @@
             currentIndex: 0,
             isRandom: false,
             isPlaying: false,
+            isRepeat: false,
             songs: [
                 {
                     name: 'Nevada',
@@ -273,7 +276,21 @@
                     _this.isRandom = !_this.isRandom;
                     randomBtn.classList.toggle('active', _this.isRandom);
                 }
-                
+
+                //Xu ly next song khi audio ended
+                audio.onended = function() {
+                    if(_this.isRepeat){
+                        audio.play();
+                    }else {
+                        nextBtn.click();
+                    }
+                } 
+
+                //Xu ly khi an vao repeat
+                repeatBtn.onclick = function(e) {
+                    _this.isRepeat = !_this.isRepeat;
+                    repeatBtn.classList.toggle('active', _this.isRepeat);
+                }
             },
             loadCurrentSong: function() {
 
