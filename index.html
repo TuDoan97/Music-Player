@@ -91,11 +91,14 @@
 
         const nextBtn = $('.btn-next');
 
+        const randomBtn = $('.btn-random');
+
 
 
 
         const app = {
             currentIndex: 0,
+            isRandom: false,
             isPlaying: false,
             songs: [
                 {
@@ -247,16 +250,29 @@
 
                 // Khi next bai hat
                 nextBtn.onclick = function(){
-                    _this.nextSong();
+                    if(_this.isRandom){
+                        _this.playRandomSong();
+                    }else{
+                        _this.nextSong();
+                    }
                     audio.play();
                 }
 
                 // Khi Prev bai hat
-                prevBtn.onclick = function () {
-                    _this.prevSong();
+                prevBtn.onclick = function() {
+                    if(_this.isRandom){
+                        _this.playRandomSong();
+                    }else{
+                        _this.prevSong();
+                    }
                     audio.play();
                 }
 
+                //khi random bai hat
+                randomBtn.onclick = function(e) {
+                    _this.isRandom = !_this.isRandom;
+                    randomBtn.classList.toggle('active', _this.isRandom);
+                }
                 
             },
             loadCurrentSong: function() {
@@ -277,6 +293,15 @@
                 if(this.currentIndex < 0){
                     this.currentIndex  = this.songs.length - 1;
                 }
+                this.loadCurrentSong();
+            },
+            playRandomSong: function() {
+                let newIndex; 
+                do{
+                    newIndex = Math.floor(Math.random() * this. songs.length);
+                }while(newIndex === this.currentIndex);
+
+                this.currentIndex = newIndex;
                 this.loadCurrentSong();
             },
             start: function(){
