@@ -83,6 +83,8 @@
 
         const playBtn = $('.btn-toggle-play');
 
+        const playlist = $('.playlist');
+
         const player = $('.player');
 
         const progress = $('#progress');
@@ -168,7 +170,7 @@
             render: function(){
                 const htmls = this.songs.map((song, index) => {
                     return `
-                        <div class="song ${index === this.currentIndex ? 'active' : ''}">
+                        <div class="song ${index === this.currentIndex ? 'active' : ''}" data-index = "${index}">
                             <div class="thumb" style="background-image: url('${song.image}')"></div>
                             <div class="body">
                                 <h3 class="title">${song.name}</h3>
@@ -180,7 +182,7 @@
                         </div>
                     `
                 })
-                $('.playlist').innerHTML = htmls.join('');
+                playlist.innerHTML = htmls.join('');
             },
             defineProperties: function() {
                 Object.defineProperty(this, 'currentSong', {
@@ -246,7 +248,7 @@
                 }
 
                 // Xu ly khi tua
-                progress.onchange = function(e) {
+                progress.oninput = function(e) {
                     const seekTime = audio.duration / 100 * e.target.value;
                     audio.currentTime = seekTime;
                 }
@@ -260,6 +262,7 @@
                     }
                     audio.play();
                     _this.render();
+                    _this.scrollToActiveSong();
                 }
 
                 // Khi Prev bai hat
@@ -271,6 +274,7 @@
                     }
                     audio.play();
                     _this.render();
+                    _this.scrollToActiveSong();
                 }
 
                 //khi random bai hat
@@ -293,6 +297,21 @@
                     _this.isRepeat = !_this.isRepeat;
                     repeatBtn.classList.toggle('active', _this.isRepeat);
                 }
+
+                // Lanng nghe hanh vi click vao playlist
+                playlist.onclick = function(e) {
+                    const songNode = e.target.closest('.song:not(.active)');
+                    if(e.target.closest('.song:not(.active)') || e.target.closest('.option')){
+                        //Xu ly khi click vao song
+                        if(songNode){
+                            _this.currentIndex = Number(songNode.dataset.index);
+                            _this.loadCurrentSong();
+                            _this.render();
+                            audio.play();
+                        }
+                        //Xu ly khi click vao option
+                    }
+                }
             },
             loadCurrentSong: function() {
 
@@ -313,6 +332,22 @@
                     this.currentIndex  = this.songs.length - 1;
                 }
                 this.loadCurrentSong();
+            },
+            scrollToActiveSong: function () {
+               setTimeout(() => {
+                    if (this.currentIndex <= 2) {
+                        $('.song.active').scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'end'
+                        });
+                    }
+                    else {
+                        $('.song.active').scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+                    }
+                }, 300);
             },
             playRandomSong: function() {
                 let newIndex; 
